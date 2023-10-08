@@ -1,6 +1,5 @@
 import { SvelteKitAuth } from '@auth/sveltekit';
 import Google from '@auth/core/providers/google';
-import Github from '@auth/core/providers/github';
 import {
 	AUTH_SECRET,
 	GOOGLE_CLIENT_ID,

@@ -39,10 +39,10 @@
 		"@auth/core": "^0.16.1",
 		"@auth/sveltekit": "^0.3.9",
 		"@edge37/redis-utils": "^2.0.0",
-		"@edge37/util": "^0.0.4",
+		"@edge37/util": "^0.0.5",
 		"@xenova/transformers": "^2.6.2",
 		"axios": "^1.5.1",
 		"redis": "^4.6.10",
-		"sveltekit-carbon-utils": "^0.2.31"
+		"sveltekit-carbon-utils": "^0.2.33"
 	}
 }
