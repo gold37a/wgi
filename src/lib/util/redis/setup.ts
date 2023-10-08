@@ -1,5 +1,5 @@
 import { client } from '.';
-import { index } from '$lib/constants';
+import { index, PREFIX } from '$lib/constants';
 import { SchemaFieldTypes, VectorAlgorithms } from 'redis';
 
 export const setup = async () => {
@@ -17,12 +17,17 @@ export const setup = async () => {
 				},
 				'$.n': {
 					AS: 'n',
-					type: SchemaFieldTypes.TEXT
+					type: SchemaFieldTypes.TEXT,
+					NOSTEM: true,
+					NOINDEX: true
 				}
 			},
 			{
 				ON: 'JSON',
 				PREFIX,
+				NOOFFSETS: true,
+				NOFIELDS: true,
+				NOFREQS: true,
 				NOHL: true
 			}
 		);
