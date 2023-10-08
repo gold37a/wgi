@@ -2,6 +2,7 @@ import { PREFIX } from '$lib/constants';
 import { client } from '$lib/util/redis';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { handle_server_error } from '$lib/util/handle_server_error';
 
 export const load: PageServerLoad = async ({ request, params }) => {
 	try {

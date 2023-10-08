@@ -1,6 +1,6 @@
 import { user_id_prefix } from '$lib/constants';
-import { escape_email } from '$lib/util/escape_email';
 import { client } from '$lib/util/redis';
+import { escape } from '@edge37/util';
 import type { SignInArg } from '.';
 import { embed_user } from '../embed_user';
 
@@ -12,14 +12,14 @@ export const github = async (arg: SignInArg) => {
 	if (await client.exists(id)) {
 		await client.json.set(id, '$.login', arg.profile?.login as string);
 		await client.json.set(id, '$.name', arg.profile?.name as string);
-		await client.json.set(id, '$.email', escape_email(arg.profile?.email as string));
+		await client.json.set(id, '$.email', escape(arg.profile?.email as string));
 		await client.json.set(id, '$.provider', arg.account?.provider as string);
 		await client.json.set(id, '$.v', v);
 	} else
 		await client.json.set(id, '$', {
 			login: (arg.profile?.login as string) ?? null,
 			name: arg.profile?.name ?? null,
-			email: escape_email(arg.profile?.email ?? ''),
+			email: escape(arg.profile?.email ?? ''),
 			provider: arg.account?.provider ?? null,
 			v
 		});

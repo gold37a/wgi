@@ -1,9 +1,8 @@
 <script lang="ts">
-	import OnEnter from 'sveltekit-carbon-utils';
-	import { parse } from '@edge37/utils';
+	import { OnEnter } from 'sveltekit-carbon-utils';
+	import { parse } from '@edge37/util';
 	import { notify } from 'sveltekit-carbon-utils';
-	import { sanitize_object, sanitize_string } from '$lib/util/sanitize';
-	import { signOut } from '@auth/sveltekit/client';
+	import { sanitize_object, sanitize_string } from '@edge37/util';
 	import axios from 'axios';
 	import {
 		Button,
@@ -24,9 +23,11 @@
 		edit_loading = false,
 		delete_loading = false;
 
-	export let n = "", t = "", id: string | undefined = undefined;
+	export let n = '',
+		t = '',
+		id: string | undefined = undefined;
 
-	const dispatch = createEventDispatcher<{ save: { link?: string; id?: string, h: string } }>();
+	const dispatch = createEventDispatcher<{ save: { link?: string; id?: string; h: string } }>();
 
 	const del = async () => {
 		if (!id || delete_loading) return;
@@ -34,7 +35,7 @@
 		try {
 			await axios.delete(`/${id}`);
 			notify('Deleted');
-			goto('/')
+			goto('/');
 		} catch (e: any) {
 			console.error('delete error', e);
 			notify({
@@ -50,15 +51,14 @@
 		if (edit_loading) return;
 		edit_loading = true;
 		try {
-			let id = link.split(link_prefix)[1]
+			let id = link.split(link_prefix)[1];
 			let payload = sanitize_object({ n, t });
 			const html = await parse(payload.t as string);
 			payload.h = sanitize_string(html);
-			console.debug(payload);
 			await axios.put(`/${id}`, payload);
-			dispatch('save', { id, h: payload.html });
+			// dispatch('save', { id, h: payload.html });
 			notify('Saved');
-			goto(`/{$id}`)
+			goto(`/{$id}`);
 		} catch (e: any) {
 			console.error('save error', e);
 			if (e === 'timeout') {
@@ -89,7 +89,7 @@
 	<TextInput labelText="name" bind:value={n} />
 	<TextArea
 		rows={15}
-		placeholder="So other users can easily find you. Describe yourself in detail, Your self, your personality, your hobbies, your experience, likes and dislikes, and so on. Use markdown if you want. Add your contacts so other users can reach you. Use country codes (starting with the plus sign) for phone numbers"
+		placeholder="Describe your group in detail, Use markdown if you want"
 		invalid={t_invalid}
 		invalidText={t_invalid_text}
 		bind:value={t}

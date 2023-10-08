@@ -5,7 +5,7 @@ interface CustomError {
 	message: string;
 }
 
-export const handle_server_error = (m: string | Request, e?: unknown) => {
+export const handle_server_error = (m: string | Request, e?: unknown) => { //TODO~ - move to sveltekit-utils
 	let r: string
 	if (typeof m === 'string') {r = m} else {r = `${m.method} ${m.url}`}
 	console.error(r, e ?? '');

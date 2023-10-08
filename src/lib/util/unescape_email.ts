@@ -1,1 +1,0 @@
-export const unescape_email = (input: string) => input.replaceAll('\\', '');
