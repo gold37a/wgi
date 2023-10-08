@@ -1,11 +1,11 @@
 import { client } from '.';
-import { user_id_prefix, user_index } from '$lib/constants';
+import { index } from '$lib/constants';
 import { SchemaFieldTypes, VectorAlgorithms } from 'redis';
 
 export const setup = async () => {
 	try {
 		await client.ft.create(
-			user_index,
+			index,
 			{
 				'$.v': {
 					AS: 'v',
@@ -22,7 +22,7 @@ export const setup = async () => {
 			},
 			{
 				ON: 'JSON',
-				PREFIX: user_id_prefix,
+				PREFIX,
 				NOHL: true
 			}
 		);
